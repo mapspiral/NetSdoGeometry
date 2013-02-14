@@ -44,8 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElementArrayFactory.cs" />
     <Compile Include="OracleArrayTypeFactory.cs" />
     <Compile Include="OracleCustomTypeBase.cs" />
+    <Compile Include="OracleObjectColumns.cs" />
+    <Compile Include="OrdinatesArrayFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SdoGeometry.cs" />
     <Compile Include="SdoGeometryTypes.cs" />

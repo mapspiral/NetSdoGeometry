@@ -8,10 +8,15 @@ namespace NetSdoGeometry
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_GEOMETRY")]
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>
     {
-        private enum OracleObjectColumns { SDO_GTYPE, SDO_SRID, SDO_POINT, SDO_ELEM_INFO, SDO_ORDINATES }
-
         private decimal? _sdo_gtype;
-        
+        private decimal? _sdo_srid;
+        private decimal[] elemArray;
+        private SdoPoint _sdopoint;
+        private decimal[] ordinatesArray;
+        private int _GeometryType;
+        private int _LRS;
+        private int _Dimensionality;
+
         [OracleObjectMappingAttribute(0)]
         public decimal? sdo_gtype
         {
@@ -23,8 +28,6 @@ namespace NetSdoGeometry
         {
             get { return System.Convert.ToInt32(this.sdo_gtype); }
         }
-
-        private decimal? _sdo_srid;
 
         [OracleObjectMappingAttribute(1)]
         public decimal? sdo_srid
@@ -39,7 +42,6 @@ namespace NetSdoGeometry
             set { this.sdo_srid = System.Convert.ToDecimal(value); }
         }
 
-        private SdoPoint _sdopoint;
         [OracleObjectMappingAttribute(2)]
         public SdoPoint sdo_point
         {
@@ -47,8 +49,6 @@ namespace NetSdoGeometry
             set { this._sdopoint = value; }
         }
 
-        private decimal[] elemArray;
-        
         [OracleObjectMappingAttribute(3)]
         public decimal[] ElemArray
         {
@@ -56,37 +56,11 @@ namespace NetSdoGeometry
             set { this.elemArray = value; }
         }
 
-        private decimal[] ordinatesArray;
-        
         [OracleObjectMappingAttribute(4)]
         public decimal[] OrdinatesArray
         {
             get { return this.ordinatesArray; }
             set { this.ordinatesArray = value; }
-        }
-
-        [OracleCustomTypeMappingAttribute("MDSYS.SDO_ELEM_INFO_ARRAY")]
-        public class ElemArrayFactory : OracleArrayTypeFactoryBase<decimal> { }
-
-        [OracleCustomTypeMappingAttribute("MDSYS.SDO_ORDINATE_ARRAY")]
-        public class OrdinatesArrayFactory : OracleArrayTypeFactoryBase<decimal> { }
-
-        public override void MapFromCustomObject()
-        {
-            this.SetValue((int)OracleObjectColumns.SDO_GTYPE, this.sdo_gtype);
-            this.SetValue((int)OracleObjectColumns.SDO_SRID, this.sdo_srid);
-            this.SetValue((int)OracleObjectColumns.SDO_POINT, this.sdo_point);
-            this.SetValue((int)OracleObjectColumns.SDO_ELEM_INFO, this.ElemArray);
-            this.SetValue((int)OracleObjectColumns.SDO_ORDINATES, this.OrdinatesArray);
-        }
-
-        public override void MapToCustomObject()
-        {
-            this.sdo_gtype = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_GTYPE);
-            this.sdo_srid = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_SRID);
-            this.sdo_point = this.GetValue<SdoPoint>((int)OracleObjectColumns.SDO_POINT);
-            this.ElemArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ELEM_INFO);
-            this.OrdinatesArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ORDINATES);
         }
 
         public int[] ElemArrayOfInts
@@ -160,57 +134,24 @@ namespace NetSdoGeometry
             }
         }
 
-        private int _Dimensionality;
-        
         public int Dimensionality
         {
             get { return this._Dimensionality; }
             set { this._Dimensionality = value; }
         }
 
-        private int _LRS;
-        
         public int LRS
         {
             get { return this._LRS; }
             set { this._LRS = value; }
         }
-        
-        private int _GeometryType;
-        
+           
         public int GeometryType
         {
             get { return this._GeometryType; }
             set { this._GeometryType = value; }
         }
-        
-        public int PropertiesFromGTYPE()
-        {
-            if ((int)this._sdo_gtype != 0)
-            {
-                int v = (int)this._sdo_gtype;
-                int dim = v / 1000;
-                this.Dimensionality = dim;
-                v -= dim * 1000;
-                int lrsDim = v / 100;
-                this.LRS = lrsDim;
-                v -= lrsDim * 100;
-                this.GeometryType = v;
-                return (this.Dimensionality * 1000) + (this.LRS * 100) + this.GeometryType;
-            }
-            else
-                return 0;
-        }
-        
-        public int PropertiesToGTYPE()
-        {
-            int v = this.Dimensionality * 1000;
-            v = v + (this.LRS * 100);
-            v = v + this.GeometryType;
-            this._sdo_gtype = System.Convert.ToDecimal(v);
-            return (v);
-        }
-        
+
         public string AsText
         {
             get
@@ -226,11 +167,12 @@ namespace NetSdoGeometry
                 if (this.sdo_point != null)
                 {
                     sb.Append("MDSYS.SDO_POINT_TYPE(");
-                    string _tmp = string.Format("{0:#.##########},{1:#.##########}{2}{3:#.##########}",
-                                                    this.sdo_point.X,
-                                                    this.sdo_point.Y,
-                                                    (this.sdo_point.Z == null) ? null : ",",
-                                                    this.sdo_point.Z);
+                    string _tmp = string.Format(
+                        "{0:#.##########},{1:#.##########}{2}{3:#.##########}",
+                        this.sdo_point.X,
+                        this.sdo_point.Y,
+                        (this.sdo_point.Z == null) ? null : ",",
+                        this.sdo_point.Z);
                     
                     sb.Append(_tmp.Trim());
                     sb.Append(")");
@@ -251,7 +193,9 @@ namespace NetSdoGeometry
                         string _tmp = string.Format("{0}", this.elemArray[i]);
                         sb.Append(_tmp);
                         if (i < (this.elemArray.Length - 1))
+                        {
                             sb.Append(",");
+                        }
                     }
 
                     sb.Append(")");
@@ -272,7 +216,9 @@ namespace NetSdoGeometry
                         string _tmp = string.Format("{0:#.##########}", this.ordinatesArray[i]);
                         sb.Append(_tmp);
                         if (i < (this.ordinatesArray.Length - 1))
+                        {
                             sb.Append(",");
+                        }
                     }
 
                     sb.Append(")");
@@ -286,6 +232,55 @@ namespace NetSdoGeometry
                 
                 return sb.ToString();
             }
+        }
+
+        public override void MapFromCustomObject()
+        {
+            this.SetValue((int)OracleObjectColumns.SDO_GTYPE, this.sdo_gtype);
+            this.SetValue((int)OracleObjectColumns.SDO_SRID, this.sdo_srid);
+            this.SetValue((int)OracleObjectColumns.SDO_POINT, this.sdo_point);
+            this.SetValue((int)OracleObjectColumns.SDO_ELEM_INFO, this.ElemArray);
+            this.SetValue((int)OracleObjectColumns.SDO_ORDINATES, this.OrdinatesArray);
+        }
+
+        public override void MapToCustomObject()
+        {
+            this.sdo_gtype = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_GTYPE);
+            this.sdo_srid = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_SRID);
+            this.sdo_point = this.GetValue<SdoPoint>((int)OracleObjectColumns.SDO_POINT);
+            this.ElemArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ELEM_INFO);
+            this.OrdinatesArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ORDINATES);
+        }
+
+        public int PropertiesFromGTYPE()
+        {
+            if ((int)this._sdo_gtype != 0)
+            {
+                int v = (int)this._sdo_gtype;
+                int dim = v / 1000;
+                this.Dimensionality = dim;
+                v -= dim * 1000;
+                int lrsDim = v / 100;
+                this.LRS = lrsDim;
+                v -= lrsDim * 100;
+                this.GeometryType = v;
+                return (this.Dimensionality * 1000) + (this.LRS * 100) + this.GeometryType;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int PropertiesToGTYPE()
+        {
+            int v = this.Dimensionality * 1000;
+            v = v + (this.LRS * 100);
+            v = v + this.GeometryType;
+
+            this._sdo_gtype = System.Convert.ToDecimal(v);
+
+            return v;
         }
 
         public override string ToString()
