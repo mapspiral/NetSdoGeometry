@@ -8,7 +8,6 @@ namespace NetSdoGeometry
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_GEOMETRY")]
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>
     {
-        private int _GeometryType;
         [OracleObjectMappingAttribute(0)]
         public decimal? sdo_gtype { get; set; }
 
@@ -109,12 +108,8 @@ namespace NetSdoGeometry
         public int Dimensionality { get; set; }
 
         public int LRS { get; set; }
-           
-        public int GeometryType
-        {
-            get { return this._GeometryType; }
-            set { this._GeometryType = value; }
-        }
+
+        public int GeometryType { get; set; }
 
         public string AsText
         {
