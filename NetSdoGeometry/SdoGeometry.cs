@@ -8,7 +8,6 @@ namespace NetSdoGeometry
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_GEOMETRY")]
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>
     {
-        private decimal[] ordinatesArray;
         private int _GeometryType;
         private int _LRS;
         private int dimensionality;
@@ -37,11 +36,7 @@ namespace NetSdoGeometry
         public decimal[] ElemArray { get; set; }
 
         [OracleObjectMappingAttribute(4)]
-        public decimal[] OrdinatesArray
-        {
-            get { return this.ordinatesArray; }
-            set { this.ordinatesArray = value; }
-        }
+        public decimal[] OrdinatesArray { get; set; }
 
         public int[] ElemArrayOfInts
         {
@@ -86,10 +81,10 @@ namespace NetSdoGeometry
                 double[] elems = null;
                 if (this.OrdinatesArray != null)
                 {
-                    elems = new double[this.ordinatesArray.Length];
-                    for (int k = 0; k < this.ordinatesArray.Length; k++)
+                    elems = new double[this.OrdinatesArray.Length];
+                    for (int k = 0; k < this.OrdinatesArray.Length; k++)
                     {
-                        elems[k] = System.Convert.ToDouble(this.ordinatesArray[k]);
+                        elems[k] = System.Convert.ToDouble(this.OrdinatesArray[k]);
                     }
                 }
 
@@ -101,15 +96,15 @@ namespace NetSdoGeometry
                 if (value != null)
                 {
                     int c = value.GetLength(0);
-                    this.ordinatesArray = new decimal[c];
+                    this.OrdinatesArray = new decimal[c];
                     for (int k = 0; k < c; k++)
                     {
-                        this.ordinatesArray[k] = System.Convert.ToDecimal(value[k]);
+                        this.OrdinatesArray[k] = System.Convert.ToDecimal(value[k]);
                     }
                 }
                 else
                 {
-                    this.ordinatesArray = null;
+                    this.OrdinatesArray = null;
                 }
             }
         }
@@ -188,14 +183,14 @@ namespace NetSdoGeometry
                 sb.Append(",");
                 
                 // begin ordinates array
-                if (this.ordinatesArray != null)
+                if (this.OrdinatesArray != null)
                 {
                     sb.Append("MDSYS.SDO_ORDINATE_ARRAY(");
-                    for (int i = 0; i < this.ordinatesArray.Length; i++)
+                    for (int i = 0; i < this.OrdinatesArray.Length; i++)
                     {
-                        string _tmp = string.Format("{0:#.##########}", this.ordinatesArray[i]);
+                        string _tmp = string.Format("{0:#.##########}", this.OrdinatesArray[i]);
                         sb.Append(_tmp);
-                        if (i < (this.ordinatesArray.Length - 1))
+                        if (i < (this.OrdinatesArray.Length - 1))
                         {
                             sb.Append(",");
                         }
