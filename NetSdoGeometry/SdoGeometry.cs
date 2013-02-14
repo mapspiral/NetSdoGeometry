@@ -11,7 +11,7 @@ namespace NetSdoGeometry
         private decimal[] ordinatesArray;
         private int _GeometryType;
         private int _LRS;
-        private int _Dimensionality;
+        private int dimensionality;
 
         [OracleObjectMappingAttribute(0)]
         public decimal? sdo_gtype { get; set; }
@@ -116,8 +116,8 @@ namespace NetSdoGeometry
 
         public int Dimensionality
         {
-            get { return this._Dimensionality; }
-            set { this._Dimensionality = value; }
+            get { return this.dimensionality; }
+            set { this.dimensionality = value; }
         }
 
         public int LRS
