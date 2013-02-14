@@ -11,20 +11,9 @@ namespace NetSdoGeometry
         [OracleObjectMappingAttribute(0)]
         public decimal? SdoGtype { get; set; }
 
-        public int sdo_gtypeAsInt
-        {
-            get { return System.Convert.ToInt32(this.SdoGtype); }
-        }
-
         [OracleObjectMappingAttribute(1)]
         public decimal? SdoSRID { get; set; }
         
-        public int sdo_sridAsInt
-        {
-            get { return System.Convert.ToInt32(this.SdoSRID); }
-            set { this.SdoSRID = System.Convert.ToDecimal(value); }
-        }
-
         [OracleObjectMappingAttribute(2)]
         public SdoPoint SdoPoint { get; set; }
 
@@ -33,6 +22,27 @@ namespace NetSdoGeometry
 
         [OracleObjectMappingAttribute(4)]
         public decimal[] SdoOrdinates { get; set; }
+
+        public int SdoGtypeAsInt
+        {
+            get
+            {
+                return System.Convert.ToInt32(this.SdoGtype);
+            }
+        }
+
+        public int SdoSRIDAsInt
+        {
+            get 
+            { 
+                return System.Convert.ToInt32(this.SdoSRID); 
+            }
+
+            set 
+            { 
+                this.SdoSRID = System.Convert.ToDecimal(value); 
+            }
+        }
 
         public int[] ElemArrayOfInts
         {
