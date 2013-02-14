@@ -37,9 +37,9 @@ namespace NetSdoGeometry
             return new T();
         }
 
-        protected void SetConnectionAndPointer(OracleConnection _connection, IntPtr udtHandle)
+        protected void SetConnectionAndPointer(OracleConnection connection, IntPtr udtHandle)
         {
-            this.connection = _connection;
+            this.connection = connection;
             this.udtHandle = udtHandle;
         }
 
@@ -47,15 +47,15 @@ namespace NetSdoGeometry
 
         public abstract void MapToCustomObject();
 
-        public void FromCustomObject(OracleConnection con, IntPtr udtHandle)
+        public void FromCustomObject(OracleConnection connection, IntPtr udtHandle)
         {
-            this.SetConnectionAndPointer(con, udtHandle);
+            this.SetConnectionAndPointer(connection, udtHandle);
             this.MapFromCustomObject();
         }
 
-        public void ToCustomObject(OracleConnection con, IntPtr udtHandle)
+        public void ToCustomObject(OracleConnection connection, IntPtr udtHandle)
         {
-            this.SetConnectionAndPointer(con, udtHandle);
+            this.SetConnectionAndPointer(connection, udtHandle);
             this.MapToCustomObject();
         }
 
@@ -67,11 +67,11 @@ namespace NetSdoGeometry
             }
         }
 
-        protected void SetValue(int oracleColumn_Id, object value)
+        protected void SetValue(int oracleColumnId, object value)
         {
             if (value != null)
             {
-                OracleUdt.SetValue(this.connection, this.udtHandle, oracleColumn_Id, value);
+                OracleUdt.SetValue(this.connection, this.udtHandle, oracleColumnId, value);
             }
         }
 
@@ -94,13 +94,13 @@ namespace NetSdoGeometry
             }
         }
 
-        protected U GetValue<U>(int oracleColumn_Id)
+        protected U GetValue<U>(int oracleColumnId)
         {
-            if (OracleUdt.IsDBNull(this.connection, this.udtHandle, oracleColumn_Id))
+            if (OracleUdt.IsDBNull(this.connection, this.udtHandle, oracleColumnId))
             {
                 if (default(U) is ValueType)
                 {
-                    throw new Exception(errorMessageHead + oracleColumn_Id.ToString() + " of value type " + typeof(U).ToString());
+                    throw new Exception(errorMessageHead + oracleColumnId.ToString() + " of value type " + typeof(U).ToString());
                 }
                 else
                 {
@@ -109,7 +109,7 @@ namespace NetSdoGeometry
             }
             else
             {
-                return (U)OracleUdt.GetValue(this.connection, this.udtHandle, oracleColumn_Id);
+                return (U)OracleUdt.GetValue(this.connection, this.udtHandle, oracleColumnId);
             }
         }
     }
