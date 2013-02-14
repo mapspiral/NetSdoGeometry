@@ -6,7 +6,7 @@ namespace NetSdoGeometry
 {
     [Serializable]
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_POINT_TYPE")]
-    public class SDOPOINT : OracleCustomTypeBase<SDOPOINT>
+    public class SdoPoint : OracleCustomTypeBase<SdoPoint>
     {
         private decimal? x;
         [OracleObjectMappingAttribute("X")]

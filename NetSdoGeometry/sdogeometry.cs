@@ -50,9 +50,9 @@ namespace NetSdoGeometry
             set { sdo_srid = System.Convert.ToDecimal(value); }
         }
 
-        private SDOPOINT _sdopoint;
+        private SdoPoint _sdopoint;
         [OracleObjectMappingAttribute(2)]
-        public SDOPOINT sdo_point
+        public SdoPoint sdo_point
         {
             get { return _sdopoint; }
             set { _sdopoint = value; }
@@ -93,7 +93,7 @@ namespace NetSdoGeometry
         {
             sdo_gtype = GetValue<decimal?>((int)OracleObjectColumns.SDO_GTYPE);
             sdo_srid = GetValue<decimal?>((int)OracleObjectColumns.SDO_SRID);
-            sdo_point = GetValue<SDOPOINT>((int)OracleObjectColumns.SDO_POINT);
+            sdo_point = GetValue<SdoPoint>((int)OracleObjectColumns.SDO_POINT);
             ElemArray = GetValue<decimal[]>((int)OracleObjectColumns.SDO_ELEM_INFO);
             OrdinatesArray = GetValue<decimal[]>((int)OracleObjectColumns.SDO_ORDINATES);
         }
