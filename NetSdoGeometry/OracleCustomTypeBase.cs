@@ -44,6 +44,7 @@ namespace NetSdoGeometry
         }
 
         public abstract void MapFromCustomObject();
+
         public abstract void MapToCustomObject();
 
         public void FromCustomObject(OracleConnection con, IntPtr pUdt)
@@ -51,6 +52,7 @@ namespace NetSdoGeometry
             this.SetConnectionAndPointer(con, pUdt);
             this.MapFromCustomObject();
         }
+
         public void ToCustomObject(OracleConnection con, IntPtr pUdt)
         {
             this.SetConnectionAndPointer(con, pUdt);
@@ -64,6 +66,7 @@ namespace NetSdoGeometry
                 OracleUdt.SetValue(this.connection, this.pUdt, oracleColumnName, value);
             }
         }
+
         protected void SetValue(int oracleColumn_Id, object value)
         {
             if (value != null)
@@ -74,7 +77,6 @@ namespace NetSdoGeometry
 
         protected U GetValue<U>(string oracleColumnName)
         {
-
             if (OracleUdt.IsDBNull(this.connection, this.pUdt, oracleColumnName))
             {
                 if (default(U) is ValueType)

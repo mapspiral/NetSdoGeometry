@@ -11,24 +11,28 @@ namespace NetSdoGeometry
         private enum OracleObjectColumns { SDO_GTYPE, SDO_SRID, SDO_POINT, SDO_ELEM_INFO, SDO_ORDINATES }
 
         private decimal? _sdo_gtype;
+        
         [OracleObjectMappingAttribute(0)]
         public decimal? sdo_gtype
         {
             get { return this._sdo_gtype; }
             set { this._sdo_gtype = value; }
         }
+
         public int sdo_gtypeAsInt
         {
             get { return System.Convert.ToInt32(this.sdo_gtype); }
         }
 
         private decimal? _sdo_srid;
+
         [OracleObjectMappingAttribute(1)]
         public decimal? sdo_srid
         {
             get { return this._sdo_srid; }
             set { this._sdo_srid = value; }
         }
+        
         public int sdo_sridAsInt
         {
             get { return System.Convert.ToInt32(this.sdo_srid); }
@@ -44,6 +48,7 @@ namespace NetSdoGeometry
         }
 
         private decimal[] elemArray;
+        
         [OracleObjectMappingAttribute(3)]
         public decimal[] ElemArray
         {
@@ -52,6 +57,7 @@ namespace NetSdoGeometry
         }
 
         private decimal[] ordinatesArray;
+        
         [OracleObjectMappingAttribute(4)]
         public decimal[] OrdinatesArray
         {
@@ -96,14 +102,17 @@ namespace NetSdoGeometry
                         elems[k] = System.Convert.ToInt32(this.elemArray[k]);
                     }
                 }
+
                 return elems;
             }
+
             set
             {
                 if (value != null)
                 {
                     int c = value.GetLength(0);
                     this.elemArray = new decimal[c];
+            
                     for (int k = 0; k < c; k++)
                     {
                         this.elemArray[k] = System.Convert.ToDecimal(value[k]);
@@ -115,6 +124,7 @@ namespace NetSdoGeometry
                 }
             }
         }
+
         public double[] OrdinatesArrayOfDoubles
         {
             get
@@ -128,8 +138,10 @@ namespace NetSdoGeometry
                         elems[k] = System.Convert.ToDouble(this.ordinatesArray[k]);
                     }
                 }
+
                 return elems;
             }
+
             set
             {
                 if (value != null)
@@ -147,24 +159,31 @@ namespace NetSdoGeometry
                 }
             }
         }
+
         private int _Dimensionality;
+        
         public int Dimensionality
         {
             get { return this._Dimensionality; }
             set { this._Dimensionality = value; }
         }
+
         private int _LRS;
+        
         public int LRS
         {
             get { return this._LRS; }
             set { this._LRS = value; }
         }
+        
         private int _GeometryType;
+        
         public int GeometryType
         {
             get { return this._GeometryType; }
             set { this._GeometryType = value; }
         }
+        
         public int PropertiesFromGTYPE()
         {
             if ((int)this._sdo_gtype != 0)
@@ -182,6 +201,7 @@ namespace NetSdoGeometry
             else
                 return 0;
         }
+        
         public int PropertiesToGTYPE()
         {
             int v = this.Dimensionality * 1000;
@@ -190,6 +210,7 @@ namespace NetSdoGeometry
             this._sdo_gtype = System.Convert.ToDecimal(v);
             return (v);
         }
+        
         public string AsText
         {
             get
@@ -200,6 +221,7 @@ namespace NetSdoGeometry
                 sb.Append(",");
                 sb.Append((this.sdo_srid != null) ? this.sdo_srid.ToString() : "null");
                 sb.Append(",");
+                
                 // begin point
                 if (this.sdo_point != null)
                 {
@@ -217,7 +239,9 @@ namespace NetSdoGeometry
                 {
                     sb.Append("null");
                 }
+
                 sb.Append(",");
+            
                 // begin element array
                 if (this.elemArray != null)
                 {
@@ -229,13 +253,16 @@ namespace NetSdoGeometry
                         if (i < (this.elemArray.Length - 1))
                             sb.Append(",");
                     }
+
                     sb.Append(")");
                 }
                 else
                 {
                     sb.Append("null");
                 }
+                
                 sb.Append(",");
+                
                 // begin ordinates array
                 if (this.ordinatesArray != null)
                 {
@@ -247,16 +274,20 @@ namespace NetSdoGeometry
                         if (i < (this.ordinatesArray.Length - 1))
                             sb.Append(",");
                     }
+
                     sb.Append(")");
                 }
                 else
                 {
                     sb.Append("null");
                 }
+                
                 sb.Append(")");
+                
                 return sb.ToString();
             }
         }
+
         public override string ToString()
         {
             return this.AsText;
