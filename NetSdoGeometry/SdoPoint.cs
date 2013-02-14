@@ -8,14 +8,8 @@ namespace NetSdoGeometry
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_POINT_TYPE")]
     public class SdoPoint : OracleCustomTypeBase<SdoPoint>
     {
-        private decimal? x;
-        
         [OracleObjectMappingAttribute("X")]
-        public decimal? X
-        {
-            get { return this.x; }
-            set { this.x = value; }
-        }
+        public decimal? X { get; set; }
 
         public double? XD
         {
