@@ -1,9 +1,9 @@
-using System;
-using System.Text;
-using Oracle.DataAccess.Types;
-
 namespace NetSdoGeometry
 {
+    using System;
+    using System.Text;
+    using Oracle.DataAccess.Types;
+
     [Serializable]
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_GEOMETRY")]
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>

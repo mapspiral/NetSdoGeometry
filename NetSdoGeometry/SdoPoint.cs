@@ -1,9 +1,9 @@
-using System;
-using Oracle.DataAccess.Types;
-using Oracle.DataAccess.Client;
-
 namespace NetSdoGeometry
 {
+    using System;
+    using Oracle.DataAccess.Client;
+    using Oracle.DataAccess.Types;
+
     [Serializable]
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_POINT_TYPE")]
     public class SdoPoint : OracleCustomTypeBase<SdoPoint>
@@ -37,7 +37,6 @@ namespace NetSdoGeometry
             get { return System.Convert.ToDouble(this.y); }
             set { this.y = System.Convert.ToDecimal(value); }
         }
-
 
         private decimal? z;
         

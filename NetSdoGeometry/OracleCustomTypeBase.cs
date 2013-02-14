@@ -1,9 +1,9 @@
-using System;
-using Oracle.DataAccess.Types;
-using Oracle.DataAccess.Client;
-
 namespace NetSdoGeometry
-{   
+{
+    using System;
+    using Oracle.DataAccess.Client;
+    using Oracle.DataAccess.Types;
+
     [Serializable]
     public abstract class OracleCustomTypeBase<T> : INullable, IOracleCustomType, IOracleCustomTypeFactory
     where T : OracleCustomTypeBase<T>, new()
