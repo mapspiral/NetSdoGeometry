@@ -14,14 +14,6 @@ namespace NetSdoGeometry
         private IntPtr udtHandle;
         private bool isNull;
 
-        public virtual bool IsNull
-        {
-            get
-            {
-                return this.isNull;
-            }
-        }
-
         public static T Null
         {
             get
@@ -32,20 +24,18 @@ namespace NetSdoGeometry
             }
         }
 
+        public virtual bool IsNull
+        {
+            get
+            {
+                return this.isNull;
+            }
+        }
+
         public IOracleCustomType CreateObject()
         {
             return new T();
         }
-
-        protected void SetConnectionAndPointer(OracleConnection connection, IntPtr udtHandle)
-        {
-            this.connection = connection;
-            this.udtHandle = udtHandle;
-        }
-
-        public abstract void MapFromCustomObject();
-
-        public abstract void MapToCustomObject();
 
         public void FromCustomObject(OracleConnection connection, IntPtr udtHandle)
         {
@@ -57,6 +47,16 @@ namespace NetSdoGeometry
         {
             this.SetConnectionAndPointer(connection, udtHandle);
             this.MapToCustomObject();
+        }
+
+        public abstract void MapFromCustomObject();
+
+        public abstract void MapToCustomObject();
+
+        protected void SetConnectionAndPointer(OracleConnection connection, IntPtr udtHandle)
+        {
+            this.connection = connection;
+            this.udtHandle = udtHandle;
         }
 
         protected void SetValue(string oracleColumnName, object value)
