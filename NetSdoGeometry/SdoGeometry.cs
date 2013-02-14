@@ -26,7 +26,7 @@ namespace NetSdoGeometry
         }
 
         [OracleObjectMappingAttribute(2)]
-        public SdoPoint sdo_point { get; set; }
+        public SdoPoint SdoPoint { get; set; }
 
         [OracleObjectMappingAttribute(3)]
         public decimal[] ElemArray { get; set; }
@@ -123,15 +123,15 @@ namespace NetSdoGeometry
                 sb.Append(",");
                 
                 // begin point
-                if (this.sdo_point != null)
+                if (this.SdoPoint != null)
                 {
                     sb.Append("MDSYS.SDO_POINT_TYPE(");
                     sb.Append(string.Format(
                         "{0:#.##########},{1:#.##########}{2}{3:#.##########}",
-                        this.sdo_point.X,
-                        this.sdo_point.Y,
-                        (this.sdo_point.Z == null) ? null : ",",
-                        this.sdo_point.Z).Trim());
+                        this.SdoPoint.X,
+                        this.SdoPoint.Y,
+                        (this.SdoPoint.Z == null) ? null : ",",
+                        this.SdoPoint.Z).Trim());
                     sb.Append(")");
                 }
                 else
@@ -193,7 +193,7 @@ namespace NetSdoGeometry
         {
             this.SetValue((int)OracleObjectColumns.SDO_GTYPE, this.Gtype);
             this.SetValue((int)OracleObjectColumns.SDO_SRID, this.SRID);
-            this.SetValue((int)OracleObjectColumns.SDO_POINT, this.sdo_point);
+            this.SetValue((int)OracleObjectColumns.SDO_POINT, this.SdoPoint);
             this.SetValue((int)OracleObjectColumns.SDO_ELEM_INFO, this.ElemArray);
             this.SetValue((int)OracleObjectColumns.SDO_ORDINATES, this.OrdinatesArray);
         }
@@ -202,7 +202,7 @@ namespace NetSdoGeometry
         {
             this.Gtype = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_GTYPE);
             this.SRID = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_SRID);
-            this.sdo_point = this.GetValue<SdoPoint>((int)OracleObjectColumns.SDO_POINT);
+            this.SdoPoint = this.GetValue<SdoPoint>((int)OracleObjectColumns.SDO_POINT);
             this.ElemArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ELEM_INFO);
             this.OrdinatesArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ORDINATES);
         }
