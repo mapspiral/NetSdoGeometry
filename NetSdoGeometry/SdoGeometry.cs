@@ -9,11 +9,11 @@ namespace NetSdoGeometry
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>
     {
         [OracleObjectMappingAttribute(0)]
-        public decimal? sdo_gtype { get; set; }
+        public decimal? Gtype { get; set; }
 
         public int sdo_gtypeAsInt
         {
-            get { return System.Convert.ToInt32(this.sdo_gtype); }
+            get { return System.Convert.ToInt32(this.Gtype); }
         }
 
         [OracleObjectMappingAttribute(1)]
@@ -117,7 +117,7 @@ namespace NetSdoGeometry
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("MDSYS.SDO_GEOMETRY(");
-                sb.Append((this.sdo_gtype != null) ? this.sdo_gtype.ToString() : "null");
+                sb.Append((this.Gtype != null) ? this.Gtype.ToString() : "null");
                 sb.Append(",");
                 sb.Append((this.sdo_srid != null) ? this.sdo_srid.ToString() : "null");
                 sb.Append(",");
@@ -191,7 +191,7 @@ namespace NetSdoGeometry
 
         public override void MapFromCustomObject()
         {
-            this.SetValue((int)OracleObjectColumns.SDO_GTYPE, this.sdo_gtype);
+            this.SetValue((int)OracleObjectColumns.SDO_GTYPE, this.Gtype);
             this.SetValue((int)OracleObjectColumns.SDO_SRID, this.sdo_srid);
             this.SetValue((int)OracleObjectColumns.SDO_POINT, this.sdo_point);
             this.SetValue((int)OracleObjectColumns.SDO_ELEM_INFO, this.ElemArray);
@@ -200,7 +200,7 @@ namespace NetSdoGeometry
 
         public override void MapToCustomObject()
         {
-            this.sdo_gtype = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_GTYPE);
+            this.Gtype = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_GTYPE);
             this.sdo_srid = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_SRID);
             this.sdo_point = this.GetValue<SdoPoint>((int)OracleObjectColumns.SDO_POINT);
             this.ElemArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ELEM_INFO);
@@ -209,9 +209,9 @@ namespace NetSdoGeometry
 
         public int PropertiesFromGTYPE()
         {
-            if ((int)this.sdo_gtype != 0)
+            if ((int)this.Gtype != 0)
             {
-                int v = (int)this.sdo_gtype;
+                int v = (int)this.Gtype;
                 int dim = v / 1000;
                 this.Dimensionality = dim;
                 v -= dim * 1000;
@@ -233,7 +233,7 @@ namespace NetSdoGeometry
             v = v + (this.LRS * 100);
             v = v + this.GeometryType;
 
-            this.sdo_gtype = System.Convert.ToDecimal(v);
+            this.Gtype = System.Convert.ToDecimal(v);
 
             return v;
         }
