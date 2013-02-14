@@ -32,7 +32,7 @@ namespace NetSdoGeometry
         public decimal[] SdoElemInfo { get; set; }
 
         [OracleObjectMappingAttribute(4)]
-        public decimal[] OrdinatesArray { get; set; }
+        public decimal[] SdoOrdinates { get; set; }
 
         public int[] ElemArrayOfInts
         {
@@ -75,12 +75,12 @@ namespace NetSdoGeometry
             get
             {
                 double[] elems = null;
-                if (this.OrdinatesArray != null)
+                if (this.SdoOrdinates != null)
                 {
-                    elems = new double[this.OrdinatesArray.Length];
-                    for (int k = 0; k < this.OrdinatesArray.Length; k++)
+                    elems = new double[this.SdoOrdinates.Length];
+                    for (int k = 0; k < this.SdoOrdinates.Length; k++)
                     {
-                        elems[k] = System.Convert.ToDouble(this.OrdinatesArray[k]);
+                        elems[k] = System.Convert.ToDouble(this.SdoOrdinates[k]);
                     }
                 }
 
@@ -92,15 +92,15 @@ namespace NetSdoGeometry
                 if (value != null)
                 {
                     int c = value.GetLength(0);
-                    this.OrdinatesArray = new decimal[c];
+                    this.SdoOrdinates = new decimal[c];
                     for (int k = 0; k < c; k++)
                     {
-                        this.OrdinatesArray[k] = System.Convert.ToDecimal(value[k]);
+                        this.SdoOrdinates[k] = System.Convert.ToDecimal(value[k]);
                     }
                 }
                 else
                 {
-                    this.OrdinatesArray = null;
+                    this.SdoOrdinates = null;
                 }
             }
         }
@@ -164,13 +164,13 @@ namespace NetSdoGeometry
                 sb.Append(",");
                 
                 // begin ordinates array
-                if (this.OrdinatesArray != null)
+                if (this.SdoOrdinates != null)
                 {
                     sb.Append("MDSYS.SDO_ORDINATE_ARRAY(");
-                    for (int i = 0; i < this.OrdinatesArray.Length; i++)
+                    for (int i = 0; i < this.SdoOrdinates.Length; i++)
                     {
-                        sb.Append(string.Format("{0:#.##########}", this.OrdinatesArray[i]));
-                        if (i < (this.OrdinatesArray.Length - 1))
+                        sb.Append(string.Format("{0:#.##########}", this.SdoOrdinates[i]));
+                        if (i < (this.SdoOrdinates.Length - 1))
                         {
                             sb.Append(",");
                         }
@@ -195,7 +195,7 @@ namespace NetSdoGeometry
             this.SetValue((int)OracleObjectColumns.SDO_SRID, this.SRID);
             this.SetValue((int)OracleObjectColumns.SDO_POINT, this.SdoPoint);
             this.SetValue((int)OracleObjectColumns.SDO_ELEM_INFO, this.SdoElemInfo);
-            this.SetValue((int)OracleObjectColumns.SDO_ORDINATES, this.OrdinatesArray);
+            this.SetValue((int)OracleObjectColumns.SDO_ORDINATES, this.SdoOrdinates);
         }
 
         public override void MapToCustomObject()
@@ -204,7 +204,7 @@ namespace NetSdoGeometry
             this.SRID = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_SRID);
             this.SdoPoint = this.GetValue<SdoPoint>((int)OracleObjectColumns.SDO_POINT);
             this.SdoElemInfo = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ELEM_INFO);
-            this.OrdinatesArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ORDINATES);
+            this.SdoOrdinates = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ORDINATES);
         }
 
         public int PropertiesFromGTYPE()
