@@ -9,7 +9,6 @@ namespace NetSdoGeometry
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>
     {
         private int _GeometryType;
-        private int _LRS;
         private int dimensionality;
 
         [OracleObjectMappingAttribute(0)]
@@ -115,11 +114,7 @@ namespace NetSdoGeometry
             set { this.dimensionality = value; }
         }
 
-        public int LRS
-        {
-            get { return this._LRS; }
-            set { this._LRS = value; }
-        }
+        public int LRS { get; set; }
            
         public int GeometryType
         {
