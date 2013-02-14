@@ -9,7 +9,6 @@ namespace NetSdoGeometry
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>
     {
         private decimal[] elemArray;
-        private SdoPoint _sdopoint;
         private decimal[] ordinatesArray;
         private int _GeometryType;
         private int _LRS;
@@ -33,11 +32,7 @@ namespace NetSdoGeometry
         }
 
         [OracleObjectMappingAttribute(2)]
-        public SdoPoint sdo_point
-        {
-            get { return this._sdopoint; }
-            set { this._sdopoint = value; }
-        }
+        public SdoPoint sdo_point { get; set; }
 
         [OracleObjectMappingAttribute(3)]
         public decimal[] ElemArray
