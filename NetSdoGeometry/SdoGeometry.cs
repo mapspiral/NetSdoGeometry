@@ -8,7 +8,6 @@ namespace NetSdoGeometry
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_GEOMETRY")]
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>
     {
-        private decimal? _sdo_gtype;
         private decimal? _sdo_srid;
         private decimal[] elemArray;
         private SdoPoint _sdopoint;
@@ -18,11 +17,7 @@ namespace NetSdoGeometry
         private int _Dimensionality;
 
         [OracleObjectMappingAttribute(0)]
-        public decimal? sdo_gtype
-        {
-            get { return this._sdo_gtype; }
-            set { this._sdo_gtype = value; }
-        }
+        public decimal? sdo_gtype { get; set; }
 
         public int sdo_gtypeAsInt
         {
@@ -254,9 +249,9 @@ namespace NetSdoGeometry
 
         public int PropertiesFromGTYPE()
         {
-            if ((int)this._sdo_gtype != 0)
+            if ((int)this.sdo_gtype != 0)
             {
-                int v = (int)this._sdo_gtype;
+                int v = (int)this.sdo_gtype;
                 int dim = v / 1000;
                 this.Dimensionality = dim;
                 v -= dim * 1000;
@@ -278,7 +273,7 @@ namespace NetSdoGeometry
             v = v + (this.LRS * 100);
             v = v + this.GeometryType;
 
-            this._sdo_gtype = System.Convert.ToDecimal(v);
+            this.sdo_gtype = System.Convert.ToDecimal(v);
 
             return v;
         }
