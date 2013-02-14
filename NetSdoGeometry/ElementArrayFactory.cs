@@ -13,7 +13,7 @@ namespace NetSdoGeometry
     using Oracle.DataAccess.Types;
 
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_ELEM_INFO_ARRAY")]
-    public class ElemArrayFactory : OracleArrayTypeFactoryBase<decimal> 
+    protected class ElemArrayFactory : OracleArrayTypeFactoryBase<decimal> 
     { 
     }
 }

@@ -5,7 +5,7 @@ namespace NetSdoGeometry
     using Oracle.DataAccess.Types;
 
     [Serializable]
-    public abstract class OracleCustomTypeBase<T> : INullable, IOracleCustomType, IOracleCustomTypeFactory
+    protected abstract class OracleCustomTypeBase<T> : INullable, IOracleCustomType, IOracleCustomTypeFactory
     where T : OracleCustomTypeBase<T>, new()
     {
         private static string errorMessageHead = "Error converting Oracle User Defined Type to .Net Type " + typeof(T).ToString() + ", oracle column is null, failed to map to . NET valuetype, column ";

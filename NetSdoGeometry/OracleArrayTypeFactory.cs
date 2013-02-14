@@ -4,7 +4,7 @@ namespace NetSdoGeometry
     using Oracle.DataAccess.Client;
     using Oracle.DataAccess.Types;
 
-    public abstract class OracleArrayTypeFactoryBase<T> : IOracleArrayTypeFactory
+    protected abstract class OracleArrayTypeFactoryBase<T> : IOracleArrayTypeFactory
     {
         public Array CreateArray(int numElems)
         {
