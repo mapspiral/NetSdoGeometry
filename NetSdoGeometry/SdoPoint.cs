@@ -11,24 +11,24 @@ namespace NetSdoGeometry
         [OracleObjectMappingAttribute("X")]
         public decimal? X { get; set; }
 
+        [OracleObjectMappingAttribute("Y")]
+        public decimal? Y { get; set; }
+
+        [OracleObjectMappingAttribute("Z")]
+        public decimal? Z { get; set; }
+
         public double? XD
         {
             get { return System.Convert.ToDouble(this.x); }
             set { this.x = System.Convert.ToDecimal(value); }
         }
 
-        [OracleObjectMappingAttribute("Y")]
-        public decimal? Y { get; set; }
-        
         public double? YD
         {
             get { return System.Convert.ToDouble(this.y); }
             set { this.y = System.Convert.ToDecimal(value); }
         }
 
-        [OracleObjectMappingAttribute("Z")]
-        public decimal? Z { get; set; }
-        
         public double? ZD
         {
             get { return System.Convert.ToDouble(this.z); }
@@ -37,9 +37,9 @@ namespace NetSdoGeometry
 
         public override void MapFromCustomObject()
         {
-            this.SetValue("X", this.x);
-            this.SetValue("Y", this.y);
-            this.SetValue("Z", this.z);
+            this.SetValue("X", this.X);
+            this.SetValue("Y", this.Y);
+            this.SetValue("Z", this.Z);
         }
 
         public override void MapToCustomObject()
