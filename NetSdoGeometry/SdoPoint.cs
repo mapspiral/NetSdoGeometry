@@ -23,14 +23,8 @@ namespace NetSdoGeometry
             set { this.x = System.Convert.ToDecimal(value); }
         }
 
-        private decimal? y;
-
         [OracleObjectMappingAttribute("Y")]
-        public decimal? Y
-        {
-            get { return this.y; }
-            set { this.y = value; }
-        }
+        public decimal? Y { get; set; }
         
         public double? YD
         {
