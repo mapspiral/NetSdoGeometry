@@ -47,7 +47,7 @@
     <Compile Include="OracleArrayTypeFactory.cs" />
     <Compile Include="OracleCustomTypeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sdogeometry.cs" />
+    <Compile Include="SdoGeometry.cs" />
     <Compile Include="SdoPoint.cs" />
   </ItemGroup>
   <ItemGroup>
