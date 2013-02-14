@@ -12,13 +12,13 @@ namespace NetSdoGeometry
         [OracleObjectMappingAttribute("X")]
         public decimal? X
         {
-            get { return x; }
-            set { x = value; }
+            get { return this.x; }
+            set { this.x = value; }
         }
         public double? XD
         {
-            get { return System.Convert.ToDouble(x); }
-            set { x = System.Convert.ToDecimal(value); }
+            get { return System.Convert.ToDouble(this.x); }
+            set { this.x = System.Convert.ToDecimal(value); }
         }
 
 
@@ -26,13 +26,13 @@ namespace NetSdoGeometry
         [OracleObjectMappingAttribute("Y")]
         public decimal? Y
         {
-            get { return y; }
-            set { y = value; }
+            get { return this.y; }
+            set { this.y = value; }
         }
         public double? YD
         {
-            get { return System.Convert.ToDouble(y); }
-            set { y = System.Convert.ToDecimal(value); }
+            get { return System.Convert.ToDouble(this.y); }
+            set { this.y = System.Convert.ToDecimal(value); }
         }
 
 
@@ -40,28 +40,28 @@ namespace NetSdoGeometry
         [OracleObjectMappingAttribute("Z")]
         public decimal? Z
         {
-            get { return z; }
-            set { z = value; }
+            get { return this.z; }
+            set { this.z = value; }
         }
         public double? ZD
         {
-            get { return System.Convert.ToDouble(z); }
-            set { z = System.Convert.ToDecimal(value); }
+            get { return System.Convert.ToDouble(this.z); }
+            set { this.z = System.Convert.ToDecimal(value); }
         }
 
 
         public override void MapFromCustomObject()
         {
-            SetValue("X", x);
-            SetValue("Y", y);
-            SetValue("Z", z);
+            this.SetValue("X", this.x);
+            this.SetValue("Y", this.y);
+            this.SetValue("Z", this.z);
         }
 
         public override void MapToCustomObject()
         {
-            X = GetValue<decimal?>("X");
-            Y = GetValue<decimal?>("Y");
-            Z = GetValue<decimal?>("Z");
+            this.X = this.GetValue<decimal?>("X");
+            this.Y = this.GetValue<decimal?>("Y");
+            this.Z = this.GetValue<decimal?>("Z");
         }
     }
 }

@@ -18,7 +18,7 @@ namespace NetSdoGeometry
         {
             get
             {
-                return isNull;
+                return this.isNull;
             }
         }
 
@@ -39,8 +39,8 @@ namespace NetSdoGeometry
 
         protected void SetConnectionAndPointer(OracleConnection _connection, IntPtr _pUdt)
         {
-            connection = _connection;
-            pUdt = _pUdt;
+            this.connection = _connection;
+            this.pUdt = _pUdt;
         }
 
         public abstract void MapFromCustomObject();
@@ -48,34 +48,34 @@ namespace NetSdoGeometry
 
         public void FromCustomObject(OracleConnection con, IntPtr pUdt)
         {
-            SetConnectionAndPointer(con, pUdt);
-            MapFromCustomObject();
+            this.SetConnectionAndPointer(con, pUdt);
+            this.MapFromCustomObject();
         }
         public void ToCustomObject(OracleConnection con, IntPtr pUdt)
         {
-            SetConnectionAndPointer(con, pUdt);
-            MapToCustomObject();
+            this.SetConnectionAndPointer(con, pUdt);
+            this.MapToCustomObject();
         }
 
         protected void SetValue(string oracleColumnName, object value)
         {
             if (value != null)
             {
-                OracleUdt.SetValue(connection, pUdt, oracleColumnName, value);
+                OracleUdt.SetValue(this.connection, this.pUdt, oracleColumnName, value);
             }
         }
         protected void SetValue(int oracleColumn_Id, object value)
         {
             if (value != null)
             {
-                OracleUdt.SetValue(connection, pUdt, oracleColumn_Id, value);
+                OracleUdt.SetValue(this.connection, this.pUdt, oracleColumn_Id, value);
             }
         }
 
         protected U GetValue<U>(string oracleColumnName)
         {
 
-            if (OracleUdt.IsDBNull(connection, pUdt, oracleColumnName))
+            if (OracleUdt.IsDBNull(this.connection, this.pUdt, oracleColumnName))
             {
                 if (default(U) is ValueType)
                 {
@@ -88,13 +88,13 @@ namespace NetSdoGeometry
             }
             else
             {
-                return (U)OracleUdt.GetValue(connection, pUdt, oracleColumnName);
+                return (U)OracleUdt.GetValue(this.connection, this.pUdt, oracleColumnName);
             }
         }
 
         protected U GetValue<U>(int oracleColumn_Id)
         {
-            if (OracleUdt.IsDBNull(connection, pUdt, oracleColumn_Id))
+            if (OracleUdt.IsDBNull(this.connection, this.pUdt, oracleColumn_Id))
             {
                 if (default(U) is ValueType)
                 {
@@ -107,7 +107,7 @@ namespace NetSdoGeometry
             }
             else
             {
-                return (U)OracleUdt.GetValue(connection, pUdt, oracleColumn_Id);
+                return (U)OracleUdt.GetValue(this.connection, this.pUdt, oracleColumn_Id);
             }
         }
     }

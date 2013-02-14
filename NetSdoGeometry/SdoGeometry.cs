@@ -14,49 +14,49 @@ namespace NetSdoGeometry
         [OracleObjectMappingAttribute(0)]
         public decimal? sdo_gtype
         {
-            get { return _sdo_gtype; }
-            set { _sdo_gtype = value;}
+            get { return this._sdo_gtype; }
+            set { this._sdo_gtype = value; }
         }
         public int sdo_gtypeAsInt
         {
-            get { return System.Convert.ToInt32(sdo_gtype); }
+            get { return System.Convert.ToInt32(this.sdo_gtype); }
         }
 
         private decimal? _sdo_srid;
         [OracleObjectMappingAttribute(1)]
         public decimal? sdo_srid
         {
-            get { return _sdo_srid; }
-            set { _sdo_srid = value; }
+            get { return this._sdo_srid; }
+            set { this._sdo_srid = value; }
         }
         public int sdo_sridAsInt
         {
-            get { return System.Convert.ToInt32(sdo_srid); }
-            set { sdo_srid = System.Convert.ToDecimal(value); }
+            get { return System.Convert.ToInt32(this.sdo_srid); }
+            set { this.sdo_srid = System.Convert.ToDecimal(value); }
         }
 
         private SdoPoint _sdopoint;
         [OracleObjectMappingAttribute(2)]
         public SdoPoint sdo_point
         {
-            get { return _sdopoint; }
-            set { _sdopoint = value; }
+            get { return this._sdopoint; }
+            set { this._sdopoint = value; }
         }
 
         private decimal[] elemArray;
         [OracleObjectMappingAttribute(3)]
         public decimal[] ElemArray
         {
-            get { return elemArray; }
-            set { elemArray = value; }
+            get { return this.elemArray; }
+            set { this.elemArray = value; }
         }
 
         private decimal[] ordinatesArray;
         [OracleObjectMappingAttribute(4)]
         public decimal[] OrdinatesArray
         {
-            get { return ordinatesArray; }
-            set { ordinatesArray = value; }
+            get { return this.ordinatesArray; }
+            set { this.ordinatesArray = value; }
         }
 
         [OracleCustomTypeMappingAttribute("MDSYS.SDO_ELEM_INFO_ARRAY")]
@@ -67,20 +67,20 @@ namespace NetSdoGeometry
 
         public override void MapFromCustomObject()
         {
-            SetValue((int)OracleObjectColumns.SDO_GTYPE, sdo_gtype);
-            SetValue((int)OracleObjectColumns.SDO_SRID, sdo_srid);
-            SetValue((int)OracleObjectColumns.SDO_POINT, sdo_point);
-            SetValue((int)OracleObjectColumns.SDO_ELEM_INFO, ElemArray);
-            SetValue((int)OracleObjectColumns.SDO_ORDINATES, OrdinatesArray);
+            this.SetValue((int)OracleObjectColumns.SDO_GTYPE, this.sdo_gtype);
+            this.SetValue((int)OracleObjectColumns.SDO_SRID, this.sdo_srid);
+            this.SetValue((int)OracleObjectColumns.SDO_POINT, this.sdo_point);
+            this.SetValue((int)OracleObjectColumns.SDO_ELEM_INFO, this.ElemArray);
+            this.SetValue((int)OracleObjectColumns.SDO_ORDINATES, this.OrdinatesArray);
         }
 
         public override void MapToCustomObject()
         {
-            sdo_gtype = GetValue<decimal?>((int)OracleObjectColumns.SDO_GTYPE);
-            sdo_srid = GetValue<decimal?>((int)OracleObjectColumns.SDO_SRID);
-            sdo_point = GetValue<SdoPoint>((int)OracleObjectColumns.SDO_POINT);
-            ElemArray = GetValue<decimal[]>((int)OracleObjectColumns.SDO_ELEM_INFO);
-            OrdinatesArray = GetValue<decimal[]>((int)OracleObjectColumns.SDO_ORDINATES);
+            this.sdo_gtype = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_GTYPE);
+            this.sdo_srid = this.GetValue<decimal?>((int)OracleObjectColumns.SDO_SRID);
+            this.sdo_point = this.GetValue<SdoPoint>((int)OracleObjectColumns.SDO_POINT);
+            this.ElemArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ELEM_INFO);
+            this.OrdinatesArray = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ORDINATES);
         }
 
         public int[] ElemArrayOfInts
@@ -106,7 +106,7 @@ namespace NetSdoGeometry
                     this.elemArray = new decimal[c];
                     for (int k = 0; k < c; k++)
                     {
-                        elemArray[k] = System.Convert.ToDecimal(value[k]);
+                        this.elemArray[k] = System.Convert.ToDecimal(value[k]);
                     }
                 }
                 else
@@ -138,7 +138,7 @@ namespace NetSdoGeometry
                     this.ordinatesArray = new decimal[c];
                     for (int k = 0; k < c; k++)
                     {
-                        ordinatesArray[k] = System.Convert.ToDecimal(value[k]);
+                        this.ordinatesArray[k] = System.Convert.ToDecimal(value[k]);
                     }
                 }
                 else
@@ -150,20 +150,20 @@ namespace NetSdoGeometry
         private int _Dimensionality;
         public int Dimensionality
         {
-            get { return _Dimensionality; }
-            set { _Dimensionality = value; }
+            get { return this._Dimensionality; }
+            set { this._Dimensionality = value; }
         }
         private int _LRS;
         public int LRS
         {
-            get { return _LRS; }
-            set { _LRS = value; }
+            get { return this._LRS; }
+            set { this._LRS = value; }
         }
         private int _GeometryType;
         public int GeometryType
         {
-            get { return _GeometryType; }
-            set { _GeometryType = value; }
+            get { return this._GeometryType; }
+            set { this._GeometryType = value; }
         }
         public int PropertiesFromGTYPE()
         {
@@ -171,22 +171,22 @@ namespace NetSdoGeometry
             {
                 int v = (int)this._sdo_gtype;
                 int dim = v / 1000;
-                Dimensionality = dim;
+                this.Dimensionality = dim;
                 v -= dim * 1000;
                 int lrsDim = v / 100;
-                LRS = lrsDim;
+                this.LRS = lrsDim;
                 v -= lrsDim * 100;
-                GeometryType = v;
-                return (Dimensionality * 1000) + (LRS * 100) + GeometryType;
+                this.GeometryType = v;
+                return (this.Dimensionality * 1000) + (this.LRS * 100) + this.GeometryType;
             }
             else
                 return 0;
         }
         public int PropertiesToGTYPE()
         {
-            int v = Dimensionality * 1000;
-            v = v + (LRS * 100);
-            v = v + GeometryType;
+            int v = this.Dimensionality * 1000;
+            v = v + (this.LRS * 100);
+            v = v + this.GeometryType;
             this._sdo_gtype = System.Convert.ToDecimal(v);
             return (v);
         }
@@ -196,19 +196,19 @@ namespace NetSdoGeometry
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("MDSYS.SDO_GEOMETRY(");
-                sb.Append((sdo_gtype != null) ? sdo_gtype.ToString() : "null");
+                sb.Append((this.sdo_gtype != null) ? this.sdo_gtype.ToString() : "null");
                 sb.Append(",");
-                sb.Append((sdo_srid != null) ? sdo_srid.ToString() : "null");
+                sb.Append((this.sdo_srid != null) ? this.sdo_srid.ToString() : "null");
                 sb.Append(",");
                 // begin point
-                if (sdo_point != null)
+                if (this.sdo_point != null)
                 {
                     sb.Append("MDSYS.SDO_POINT_TYPE(");
                     string _tmp = string.Format("{0:#.##########},{1:#.##########}{2}{3:#.##########}",
-                                                    sdo_point.X,
-                                                    sdo_point.Y,
-                                                    (sdo_point.Z == null) ? null : ",",
-                                                    sdo_point.Z);
+                                                    this.sdo_point.X,
+                                                    this.sdo_point.Y,
+                                                    (this.sdo_point.Z == null) ? null : ",",
+                                                    this.sdo_point.Z);
                     
                     sb.Append(_tmp.Trim());
                     sb.Append(")");
@@ -219,14 +219,14 @@ namespace NetSdoGeometry
                 }
                 sb.Append(",");
                 // begin element array
-                if (elemArray != null)
+                if (this.elemArray != null)
                 {
                     sb.Append("MDSYS.SDO_ELEM_INFO_ARRAY(");
-                    for (int i = 0; i < elemArray.Length; i++)
+                    for (int i = 0; i < this.elemArray.Length; i++)
                     {
-                        string _tmp = string.Format("{0}", elemArray[i]);
+                        string _tmp = string.Format("{0}", this.elemArray[i]);
                         sb.Append(_tmp);
-                        if (i < (elemArray.Length - 1))
+                        if (i < (this.elemArray.Length - 1))
                             sb.Append(",");
                     }
                     sb.Append(")");
@@ -237,14 +237,14 @@ namespace NetSdoGeometry
                 }
                 sb.Append(",");
                 // begin ordinates array
-                if (ordinatesArray != null)
+                if (this.ordinatesArray != null)
                 {
                     sb.Append("MDSYS.SDO_ORDINATE_ARRAY(");
-                    for (int i = 0; i < ordinatesArray.Length; i++)
+                    for (int i = 0; i < this.ordinatesArray.Length; i++)
                     {
-                        string _tmp = string.Format("{0:#.##########}", ordinatesArray[i]);
+                        string _tmp = string.Format("{0:#.##########}", this.ordinatesArray[i]);
                         sb.Append(_tmp);
-                        if (i < (ordinatesArray.Length - 1))
+                        if (i < (this.ordinatesArray.Length - 1))
                             sb.Append(",");
                     }
                     sb.Append(")");
