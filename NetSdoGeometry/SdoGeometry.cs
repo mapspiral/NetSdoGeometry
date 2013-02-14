@@ -126,14 +126,12 @@ namespace NetSdoGeometry
                 if (this.sdo_point != null)
                 {
                     sb.Append("MDSYS.SDO_POINT_TYPE(");
-                    string _tmp = string.Format(
+                    sb.Append(string.Format(
                         "{0:#.##########},{1:#.##########}{2}{3:#.##########}",
                         this.sdo_point.X,
                         this.sdo_point.Y,
                         (this.sdo_point.Z == null) ? null : ",",
-                        this.sdo_point.Z);
-                    
-                    sb.Append(_tmp.Trim());
+                        this.sdo_point.Z).Trim());
                     sb.Append(")");
                 }
                 else
@@ -149,8 +147,7 @@ namespace NetSdoGeometry
                     sb.Append("MDSYS.SDO_ELEM_INFO_ARRAY(");
                     for (int i = 0; i < this.ElemArray.Length; i++)
                     {
-                        string _tmp = string.Format("{0}", this.ElemArray[i]);
-                        sb.Append(_tmp);
+                        sb.Append(string.Format("{0}", this.ElemArray[i]));
                         if (i < (this.ElemArray.Length - 1))
                         {
                             sb.Append(",");
@@ -172,8 +169,7 @@ namespace NetSdoGeometry
                     sb.Append("MDSYS.SDO_ORDINATE_ARRAY(");
                     for (int i = 0; i < this.OrdinatesArray.Length; i++)
                     {
-                        string _tmp = string.Format("{0:#.##########}", this.OrdinatesArray[i]);
-                        sb.Append(_tmp);
+                        sb.Append(string.Format("{0:#.##########}", this.OrdinatesArray[i]));
                         if (i < (this.OrdinatesArray.Length - 1))
                         {
                             sb.Append(",");
