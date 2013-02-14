@@ -32,14 +32,8 @@ namespace NetSdoGeometry
             set { this.y = System.Convert.ToDecimal(value); }
         }
 
-        private decimal? z;
-        
         [OracleObjectMappingAttribute("Z")]
-        public decimal? Z
-        {
-            get { return this.z; }
-            set { this.z = value; }
-        }
+        public decimal? Z { get; set; }
         
         public double? ZD
         {
