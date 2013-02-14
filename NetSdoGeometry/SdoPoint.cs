@@ -19,20 +19,20 @@ namespace NetSdoGeometry
 
         public double? XD
         {
-            get { return System.Convert.ToDouble(this.x); }
-            set { this.x = System.Convert.ToDecimal(value); }
+            get { return System.Convert.ToDouble(this.X); }
+            set { this.X = System.Convert.ToDecimal(value); }
         }
 
         public double? YD
         {
-            get { return System.Convert.ToDouble(this.y); }
-            set { this.y = System.Convert.ToDecimal(value); }
+            get { return System.Convert.ToDouble(this.Y); }
+            set { this.Y = System.Convert.ToDecimal(value); }
         }
 
         public double? ZD
         {
-            get { return System.Convert.ToDouble(this.z); }
-            set { this.z = System.Convert.ToDecimal(value); }
+            get { return System.Convert.ToDouble(this.Z); }
+            set { this.Z = System.Convert.ToDecimal(value); }
         }
 
         public override void MapFromCustomObject()
