@@ -8,7 +8,6 @@ namespace NetSdoGeometry
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_GEOMETRY")]
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>
     {
-        private decimal? _sdo_srid;
         private decimal[] elemArray;
         private SdoPoint _sdopoint;
         private decimal[] ordinatesArray;
@@ -25,11 +24,7 @@ namespace NetSdoGeometry
         }
 
         [OracleObjectMappingAttribute(1)]
-        public decimal? sdo_srid
-        {
-            get { return this._sdo_srid; }
-            set { this._sdo_srid = value; }
-        }
+        public decimal? sdo_srid { get; set; }
         
         public int sdo_sridAsInt
         {
