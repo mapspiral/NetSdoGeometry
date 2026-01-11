@@ -27,20 +27,30 @@ namespace NetSdoGeometry
         {
             get
             {
-                return System.Convert.ToInt32(this.SdoGtype);
+                if (!this.SdoGtype.HasValue)
+                {
+                    throw new InvalidOperationException("SdoGtype is null and cannot be converted to int.");
+                }
+
+                return System.Convert.ToInt32(this.SdoGtype.Value);
             }
         }
 
         public int SdoSRIDAsInt
         {
-            get 
-            { 
-                return System.Convert.ToInt32(this.SdoSRID); 
+            get
+            {
+                if (!this.SdoSRID.HasValue)
+                {
+                    throw new InvalidOperationException("SdoSRID is null and cannot be converted to int.");
+                }
+
+                return System.Convert.ToInt32(this.SdoSRID.Value);
             }
 
-            set 
-            { 
-                this.SdoSRID = System.Convert.ToDecimal(value); 
+            set
+            {
+                this.SdoSRID = System.Convert.ToDecimal(value);
             }
         }
 
@@ -219,9 +229,9 @@ namespace NetSdoGeometry
 
         public int PropertiesFromGTYPE()
         {
-            if ((int)this.SdoGtype != 0)
+            if (this.SdoGtype.HasValue && this.SdoGtype.Value != 0)
             {
-                int v = (int)this.SdoGtype;
+                int v = (int)this.SdoGtype.Value;
                 int dim = v / 1000;
                 this.Dimensionality = dim;
                 v -= dim * 1000;
