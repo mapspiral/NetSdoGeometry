@@ -79,7 +79,7 @@ namespace NetSdoGeometry
         {
             if (OracleUdt.IsDBNull(this.connection, this.udtHandle, oracleColumnName))
             {
-                if (default(U) is ValueType)
+                if (typeof(U).IsValueType && Nullable.GetUnderlyingType(typeof(U)) == null)
                 {
                     throw new Exception(errorMessageHead + oracleColumnName.ToString() + " of value type " + typeof(U).ToString());
                 }
@@ -98,7 +98,7 @@ namespace NetSdoGeometry
         {
             if (OracleUdt.IsDBNull(this.connection, this.udtHandle, oracleColumnId))
             {
-                if (default(U) is ValueType)
+                if (typeof(U).IsValueType && Nullable.GetUnderlyingType(typeof(U)) == null)
                 {
                     throw new Exception(errorMessageHead + oracleColumnId.ToString() + " of value type " + typeof(U).ToString());
                 }
