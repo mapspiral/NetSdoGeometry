@@ -58,34 +58,23 @@ namespace NetSdoGeometry
         {
             get
             {
-                int[] elems = null;
-                if (this.SdoElemInfo != null)
+                if (this.SdoElemInfo == null)
                 {
-                    elems = new int[this.SdoElemInfo.Length];
-                    for (int k = 0; k < this.SdoElemInfo.Length; k++)
-                    {
-                        elems[k] = System.Convert.ToInt32(this.SdoElemInfo[k]);
-                    }
+                    return null;
                 }
 
-                return elems;
+                return System.Array.ConvertAll(this.SdoElemInfo, d => System.Convert.ToInt32(d));
             }
 
             set
             {
-                if (value != null)
+                if (value == null)
                 {
-                    int c = value.GetLength(0);
-                    this.SdoElemInfo = new decimal[c];
-            
-                    for (int k = 0; k < c; k++)
-                    {
-                        this.SdoElemInfo[k] = System.Convert.ToDecimal(value[k]);
-                    }
+                    this.SdoElemInfo = null;
                 }
                 else
                 {
-                    this.SdoElemInfo = null;
+                    this.SdoElemInfo = System.Array.ConvertAll(value, i => System.Convert.ToDecimal(i));
                 }
             }
         }
@@ -94,33 +83,23 @@ namespace NetSdoGeometry
         {
             get
             {
-                double[] elems = null;
-                if (this.SdoOrdinates != null)
+                if (this.SdoOrdinates == null)
                 {
-                    elems = new double[this.SdoOrdinates.Length];
-                    for (int k = 0; k < this.SdoOrdinates.Length; k++)
-                    {
-                        elems[k] = System.Convert.ToDouble(this.SdoOrdinates[k]);
-                    }
+                    return null;
                 }
 
-                return elems;
+                return System.Array.ConvertAll(this.SdoOrdinates, d => System.Convert.ToDouble(d));
             }
 
             set
             {
-                if (value != null)
+                if (value == null)
                 {
-                    int c = value.GetLength(0);
-                    this.SdoOrdinates = new decimal[c];
-                    for (int k = 0; k < c; k++)
-                    {
-                        this.SdoOrdinates[k] = System.Convert.ToDecimal(value[k]);
-                    }
+                    this.SdoOrdinates = null;
                 }
                 else
                 {
-                    this.SdoOrdinates = null;
+                    this.SdoOrdinates = System.Array.ConvertAll(value, d => System.Convert.ToDecimal(d));
                 }
             }
         }
