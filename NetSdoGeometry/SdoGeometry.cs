@@ -4,123 +4,168 @@ namespace NetSdoGeometry
     using System.Text;
     using Oracle.DataAccess.Types;
 
+    /// <summary>
+    /// Represents an Oracle Spatial SDO_GEOMETRY object.
+    /// Maps to the MDSYS.SDO_GEOMETRY Oracle User Defined Type.
+    /// </summary>
     [Serializable]
     [OracleCustomTypeMappingAttribute("MDSYS.SDO_GEOMETRY")]
     public class SdoGeometry : OracleCustomTypeBase<SdoGeometry>
     {
+        /// <summary>
+        /// Gets or sets the geometry type information.
+        /// Format: [Dimension][LRS][GeometryType] (e.g., 2003 = 2D Polygon).
+        /// </summary>
         [OracleObjectMappingAttribute(0)]
         public decimal? SdoGtype { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Spatial Reference System Identifier.
+        /// Defines the coordinate system for the geometry.
+        /// </summary>
         [OracleObjectMappingAttribute(1)]
         public decimal? SdoSRID { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the point geometry for simple point types.
+        /// Only populated for point geometries; null for other types.
+        /// </summary>
         [OracleObjectMappingAttribute(2)]
         public SdoPoint SdoPoint { get; set; }
 
+        /// <summary>
+        /// Gets or sets the element information array.
+        /// Describes the geometry structure with triplets of (offset, element type, interpretation).
+        /// </summary>
         [OracleObjectMappingAttribute(3)]
         public decimal[] SdoElemInfo { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ordinates (coordinate values) array.
+        /// Contains the actual coordinate data for the geometry.
+        /// </summary>
         [OracleObjectMappingAttribute(4)]
         public decimal[] SdoOrdinates { get; set; }
 
+        /// <summary>
+        /// Gets the geometry type as an integer value.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when SdoGtype is null.</exception>
         public int SdoGtypeAsInt
         {
             get
             {
-                return System.Convert.ToInt32(this.SdoGtype);
+                if (!this.SdoGtype.HasValue)
+                {
+                    throw new InvalidOperationException("SdoGtype is null and cannot be converted to int.");
+                }
+
+                return System.Convert.ToInt32(this.SdoGtype.Value);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Spatial Reference System Identifier as an integer.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when getting and SdoSRID is null.</exception>
         public int SdoSRIDAsInt
         {
-            get 
-            { 
-                return System.Convert.ToInt32(this.SdoSRID); 
+            get
+            {
+                if (!this.SdoSRID.HasValue)
+                {
+                    throw new InvalidOperationException("SdoSRID is null and cannot be converted to int.");
+                }
+
+                return System.Convert.ToInt32(this.SdoSRID.Value);
             }
 
-            set 
-            { 
-                this.SdoSRID = System.Convert.ToDecimal(value); 
+            set
+            {
+                this.SdoSRID = System.Convert.ToDecimal(value);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the element information array as integers.
+        /// Convenience property that converts between decimal and int arrays.
+        /// </summary>
         public int[] ElemArrayOfInts
         {
             get
             {
-                int[] elems = null;
-                if (this.SdoElemInfo != null)
+                if (this.SdoElemInfo == null)
                 {
-                    elems = new int[this.SdoElemInfo.Length];
-                    for (int k = 0; k < this.SdoElemInfo.Length; k++)
-                    {
-                        elems[k] = System.Convert.ToInt32(this.SdoElemInfo[k]);
-                    }
+                    return null;
                 }
 
-                return elems;
+                return System.Array.ConvertAll(this.SdoElemInfo, d => System.Convert.ToInt32(d));
             }
 
             set
             {
-                if (value != null)
+                if (value == null)
                 {
-                    int c = value.GetLength(0);
-                    this.SdoElemInfo = new decimal[c];
-            
-                    for (int k = 0; k < c; k++)
-                    {
-                        this.SdoElemInfo[k] = System.Convert.ToDecimal(value[k]);
-                    }
+                    this.SdoElemInfo = null;
                 }
                 else
                 {
-                    this.SdoElemInfo = null;
+                    this.SdoElemInfo = System.Array.ConvertAll(value, i => System.Convert.ToDecimal(i));
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the ordinates array as doubles.
+        /// Convenience property that converts between decimal and double arrays.
+        /// </summary>
         public double[] OrdinatesArrayOfDoubles
         {
             get
             {
-                double[] elems = null;
-                if (this.SdoOrdinates != null)
+                if (this.SdoOrdinates == null)
                 {
-                    elems = new double[this.SdoOrdinates.Length];
-                    for (int k = 0; k < this.SdoOrdinates.Length; k++)
-                    {
-                        elems[k] = System.Convert.ToDouble(this.SdoOrdinates[k]);
-                    }
+                    return null;
                 }
 
-                return elems;
+                return System.Array.ConvertAll(this.SdoOrdinates, d => System.Convert.ToDouble(d));
             }
 
             set
             {
-                if (value != null)
+                if (value == null)
                 {
-                    int c = value.GetLength(0);
-                    this.SdoOrdinates = new decimal[c];
-                    for (int k = 0; k < c; k++)
-                    {
-                        this.SdoOrdinates[k] = System.Convert.ToDecimal(value[k]);
-                    }
+                    this.SdoOrdinates = null;
                 }
                 else
                 {
-                    this.SdoOrdinates = null;
+                    this.SdoOrdinates = System.Array.ConvertAll(value, d => System.Convert.ToDecimal(d));
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the dimensionality of the geometry (2D, 3D, etc.).
+        /// Extracted from the SdoGtype value.
+        /// </summary>
         public int Dimensionality { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Linear Referencing System (LRS) dimension.
+        /// Extracted from the SdoGtype value.
+        /// </summary>
         public int LRS { get; set; }
 
+        /// <summary>
+        /// Gets or sets the geometry type (Point, Line, Polygon, etc.).
+        /// Extracted from the SdoGtype value.
+        /// </summary>
         public int GeometryType { get; set; }
 
+        /// <summary>
+        /// Gets a SQL-compatible string representation of the geometry.
+        /// Returns the geometry in Oracle SDO_GEOMETRY constructor format.
+        /// </summary>
         public string AsText
         {
             get
@@ -217,11 +262,16 @@ namespace NetSdoGeometry
             this.SdoOrdinates = this.GetValue<decimal[]>((int)OracleObjectColumns.SDO_ORDINATES);
         }
 
+        /// <summary>
+        /// Extracts Dimensionality, LRS, and GeometryType from the SdoGtype value.
+        /// Populates the Dimensionality, LRS, and GeometryType properties.
+        /// </summary>
+        /// <returns>The reconstructed GTYPE value, or 0 if SdoGtype is null or 0.</returns>
         public int PropertiesFromGTYPE()
         {
-            if ((int)this.SdoGtype != 0)
+            if (this.SdoGtype.HasValue && this.SdoGtype.Value != 0)
             {
-                int v = (int)this.SdoGtype;
+                int v = (int)this.SdoGtype.Value;
                 int dim = v / 1000;
                 this.Dimensionality = dim;
                 v -= dim * 1000;
@@ -237,6 +287,11 @@ namespace NetSdoGeometry
             }
         }
 
+        /// <summary>
+        /// Constructs the SdoGtype value from Dimensionality, LRS, and GeometryType properties.
+        /// Updates the SdoGtype property with the computed value.
+        /// </summary>
+        /// <returns>The computed GTYPE value.</returns>
         public int PropertiesToGTYPE()
         {
             int v = this.Dimensionality * 1000;
